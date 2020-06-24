@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: root
+      POSTGRES_DB: capco
+    ports:
+      - 5432:5432
+    volumes:
+      - ${PSQL_VOLUME}:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  backend:
+    image: capcodigitallabs/wf_backend:latest
+    container_name: backend
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - SQL_HOST=db
+    depends_on:
+      - db
+#    volumes:
+#      - ${STATIC_VOLUME}:/var/www/
+
+#    volumes:
+#      - /var/www/django/:/var/www/django/
+
