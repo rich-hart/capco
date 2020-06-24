@@ -24,3 +24,5 @@ database.env
 
 ansible_vault_password.txt
 
+capco/production.py
+
